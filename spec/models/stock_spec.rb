@@ -16,21 +16,11 @@ RSpec.describe Stock, type: :model do
     it { should validate_presence_of(:status) }
   end
 
-  describe 'state machine' do
-    describe 'initial state' do
-      it 'is available' do
-        is_expected.to have_state(:available)
-      end
-    end
+  describe 'aasm' do
+    let(:stock) { create(:stock) }
 
-    describe 'transitions' do
-      it 'from available to locked on event lock' do
-        is_expected.to transition_from(:available).to(:locked).on_event(:lock)
-      end
-
-      it 'from locked to available on event available' do
-        is_expected.to transition_from(:locked).to(:available).on_event(:available)
-      end
-    end
+    it { expect(stock).to have_state(:available) }
+    it { expect(stock).to transition_from(:available).to(:locked).on_event(:lock) }
+    it { expect(stock).to transition_from(:locked).to(:available).on_event(:available) }
   end
 end
