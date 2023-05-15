@@ -7,6 +7,7 @@ RSpec.describe Client, type: :model do
 
   context 'with relationships' do
     it { is_expected.to have_one(:wallet) }
+    it { is_expected.to have_many(:stocks) }
   end
 
   describe 'validations' do
