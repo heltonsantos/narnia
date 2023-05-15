@@ -39,13 +39,14 @@ class WalletsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_wallet
-      @wallet = Wallet.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def wallet_params
-      params.require(:wallet).permit(:balance)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_wallet
+    @wallet = Wallet.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def wallet_params
+    params.require(:wallet).permit(:balance)
+  end
 end
