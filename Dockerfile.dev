@@ -8,7 +8,7 @@ RUN apt-get update -qq && apt-get install --no-install-recommends -y \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Layer 2. Creating environment variables which used further in Dockerfile.
-ENV APP_HOME /backend
+ENV APP_HOME /app
 
 # Layer 3. Adding config options for bundler.
 RUN echo "gem: --no-rdoc --no-ri" > /etc/gemrc
@@ -25,11 +25,8 @@ RUN bundle check || bundle install --jobs 20 --retry 5
 # Layer 7. Copying full application.
 COPY . .
 
-# Layer 8. Make file executable
-RUN chmod +x ./dev-docker-entrypoint.sh
-
 # Layer 9. Run migrations
-ENTRYPOINT ["./dev-docker-entrypoint.sh"]
+ENTRYPOINT ["sh", "dev-docker-entrypoint.sh"]
 
 # Layer 10. Command to run application.
 CMD ["rails", "s", "-p", "3000", "-b", "0.0.0.0"]
