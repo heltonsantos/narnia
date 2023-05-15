@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2023_05_15_203215) do
 
   create_table "stocks", force: :cascade do |t|
     t.string "uuid"
-    t.string "kind"
+    t.integer "kind"
     t.string "status"
     t.bigint "wallet_id", null: false
     t.datetime "created_at", precision: 6, null: false

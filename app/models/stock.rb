@@ -9,6 +9,8 @@ class Stock < ApplicationRecord
   validates :uuid, :kind, :status, presence: true
   validates :uuid, uniqueness: true
 
+  enum kind: { vibranium: 0 }
+
   aasm column: :status do
     state :available, initial: true
     state :locked
