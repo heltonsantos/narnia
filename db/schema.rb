@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_15_200000) do
+ActiveRecord::Schema.define(version: 2023_05_15_203215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,22 @@ ActiveRecord::Schema.define(version: 2023_05_15_200000) do
     t.index ["uuid"], name: "index_clients_on_uuid", unique: true
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "uuid"
+    t.string "type"
+    t.string "status"
+    t.decimal "unit_price"
+    t.integer "quantity"
+    t.datetime "scheduled_at"
+    t.datetime "executed_at"
+    t.datetime "failed_at"
+    t.datetime "completed_at"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_orders_on_client_id"
+  end
+
   create_table "stocks", force: :cascade do |t|
     t.string "uuid"
     t.string "kind"
@@ -30,6 +46,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_200000) do
     t.bigint "wallet_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_stocks_on_order_id"
     t.index ["uuid"], name: "index_stocks_on_uuid", unique: true
     t.index ["wallet_id"], name: "index_stocks_on_wallet_id"
   end
@@ -55,6 +73,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_200000) do
     t.index ["client_id"], name: "index_wallets_on_client_id"
   end
 
+  add_foreign_key "orders", "clients"
+  add_foreign_key "stocks", "orders"
   add_foreign_key "stocks", "wallets"
   add_foreign_key "transactions", "wallets"
   add_foreign_key "wallets", "clients"

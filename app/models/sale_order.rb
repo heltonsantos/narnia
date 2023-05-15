@@ -1,0 +1,2 @@
+class SaleOrder < Order
+end

@@ -2,6 +2,8 @@ class Stock < ApplicationRecord
   include AASM
 
   belongs_to :wallet
+  belongs_to :order, optional: true
+
   has_one :client, through: :wallet
 
   validates :uuid, :kind, :status, presence: true
