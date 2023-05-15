@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :transactions
   resources :stocks
   resources :wallets
-  resources :clients
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  resources :clients do
+    resources :purchase_orders, only: %i[create]
+  end
 end
