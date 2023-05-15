@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_15_004946) do
+ActiveRecord::Schema.define(version: 2023_05_15_200000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(version: 2023_05_15_004946) do
     t.index ["wallet_id"], name: "index_stocks_on_wallet_id"
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.string "uuid"
+    t.integer "nature"
+    t.integer "category"
+    t.decimal "value"
+    t.string "description"
+    t.bigint "wallet_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uuid"], name: "index_transactions_on_uuid", unique: true
+    t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
+  end
+
   create_table "wallets", force: :cascade do |t|
     t.decimal "balance"
     t.bigint "client_id", null: false
@@ -43,5 +56,6 @@ ActiveRecord::Schema.define(version: 2023_05_15_004946) do
   end
 
   add_foreign_key "stocks", "wallets"
+  add_foreign_key "transactions", "wallets"
   add_foreign_key "wallets", "clients"
 end
