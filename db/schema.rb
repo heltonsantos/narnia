@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2023_05_15_004946) do
     t.bigint "wallet_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["uuid"], name: "index_stocks_on_uuid", unique: true
     t.index ["wallet_id"], name: "index_stocks_on_wallet_id"
   end
 
