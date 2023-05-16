@@ -28,6 +28,25 @@ RSpec.describe SaleOrdersController, type: :controller do
       end
     end
 
+    context 'when provide expired_at' do
+      let(:params) do
+        {
+          client_uuid: client.uuid,
+          stock_kind: :vibranium,
+          unit_price: 10.0,
+          quantity: 10,
+          expired_at: 1.day.from_now
+        }
+      end
+
+      it 'creates a purchase order' do
+        expect { create_sale_orders }.to change(SaleOrder, :count).by(1)
+
+        expect(response).to be_successful
+        expect(response.status).to eq(201)
+      end
+    end
+
     context 'when there is not enough balance' do
       let(:stocks) { create_list(:stock, 8, wallet: wallet) }
 

@@ -5,7 +5,7 @@ module PurchaseOrders
       @stock_kind = stock_kind
       @unit_price = unit_price.to_f
       @quantity = quantity.to_i
-      @expired_at = expired_at || Time.zone.now.end_of_day
+      @expired_at = expired_at&.to_date || Time.zone.today
     end
 
     def self.call!(**args)
