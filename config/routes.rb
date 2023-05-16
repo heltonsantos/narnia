@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :stocks
   resources :wallets
 
-  resources :clients do
+  resources :clients, param: :uuid do
     resources :purchase_orders, only: %i[create]
   end
 end

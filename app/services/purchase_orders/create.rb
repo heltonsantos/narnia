@@ -1,10 +1,10 @@
 module PurchaseOrders
   class Create
-    def initialize(client_uuid:, stock_kind:, unit_price:, quantity:)
-      @client = Client.find_by(uuid: client_uuid)
+    def initialize(client:, stock_kind:, unit_price:, quantity:)
+      @client = client
       @stock_kind = stock_kind
-      @unit_price = unit_price
-      @quantity = quantity
+      @unit_price = unit_price.to_f
+      @quantity = quantity.to_i
     end
 
     def self.call!(**args)

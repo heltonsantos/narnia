@@ -6,7 +6,7 @@ RSpec.describe PurchaseOrders::Create do
 
     let(:params) do
       {
-        client_uuid: client.uuid,
+        client: client,
         stock_kind: :vibranium,
         unit_price: 10.0,
         quantity: 10
@@ -20,6 +20,16 @@ RSpec.describe PurchaseOrders::Create do
     context 'when there is enough balance' do
       it 'creates a purchase order' do
         expect { service.call! }.to change(PurchaseOrder, :count).by(1)
+      end
+
+      it 'creates with correct data' do
+        service.call!
+
+        expect(PurchaseOrder.last).to have_attributes(
+          client_id: client.id,
+          unit_price: 10.0,
+          quantity: 10
+        )
       end
     end
 
