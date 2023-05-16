@@ -23,4 +23,6 @@ class Stock < ApplicationRecord
       transitions from: :on_sale, to: :available
     end
   end
+
+  scope :stocks_to_buy, ->(stock_type) { on_sale.where(stock_type: stock_type) }
 end

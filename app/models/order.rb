@@ -13,13 +13,14 @@ class Order < ApplicationRecord
     state :completed
     state :partial_completed
     state :failed
+    state :expired
 
     event :process do
       transitions from: :pending, to: :processing
     end
 
     event :complete do
-      transitions from: [:processing, :partial_completed], to: :completed
+      transitions from: %i[processing partial_completed], to: :completed
     end
 
     event :partial_complete do
@@ -28,6 +29,10 @@ class Order < ApplicationRecord
 
     event :fail do
       transitions from: :processing, to: :failed
+    end
+
+    event :expire do
+      transitions from: :processing, to: :expired
     end
   end
 

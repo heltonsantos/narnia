@@ -28,5 +28,6 @@ RSpec.describe Order, type: :model do
     it { expect(order).to transition_from(:processing).to(:completed).on_event(:complete) }
     it { expect(order).to transition_from(:processing).to(:partial_completed).on_event(:partial_complete) }
     it { expect(order).to transition_from(:processing).to(:failed).on_event(:fail) }
+    it { expect(order).to transition_from(:processing).to(:expired).on_event(:expire) }
   end
 end
