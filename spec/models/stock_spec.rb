@@ -20,7 +20,7 @@ RSpec.describe Stock, type: :model do
     let(:stock) { create(:stock) }
 
     it { expect(stock).to have_state(:available) }
-    it { expect(stock).to transition_from(:available).to(:locked).on_event(:lock) }
-    it { expect(stock).to transition_from(:locked).to(:available).on_event(:available) }
+    it { expect(stock).to transition_from(:available).to(:on_sale).on_event(:sale) }
+    it { expect(stock).to transition_from(:on_sale).to(:available).on_event(:available) }
   end
 end

@@ -13,14 +13,14 @@ class Stock < ApplicationRecord
 
   aasm column: :status do
     state :available, initial: true
-    state :locked
+    state :on_sale
 
-    event :lock do
-      transitions from: :available, to: :locked
+    event :sale do
+      transitions from: :available, to: :on_sale
     end
 
     event :available do
-      transitions from: :locked, to: :available
+      transitions from: :on_sale, to: :available
     end
   end
 end
