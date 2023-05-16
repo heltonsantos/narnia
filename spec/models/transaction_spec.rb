@@ -10,9 +10,9 @@ RSpec.describe Transaction, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:uuid) }
-    it { should validate_presence_of(:nature) }
-    it { should validate_presence_of(:category) }
-    it { should validate_presence_of(:value) }
+    it { is_expected.to validate_presence_of(:uuid) }
+    it { is_expected.to validate_presence_of(:nature) }
+    it { is_expected.to validate_presence_of(:category) }
+    it { is_expected.to validate_presence_of(:value) }
   end
 end

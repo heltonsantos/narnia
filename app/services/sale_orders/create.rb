@@ -1,10 +1,11 @@
 module SaleOrders
   class Create
-    def initialize(client:, stock_kind:, unit_price:, quantity:)
+    def initialize(client:, stock_kind:, unit_price:, quantity:, expired_at: nil)
       @client = client
       @stock_kind = stock_kind
       @unit_price = unit_price.to_f
       @quantity = quantity.to_i
+      @expired_at = expired_at || Time.zone.now.end_of_day
     end
 
     def self.call!(**args)
@@ -21,6 +22,7 @@ module SaleOrders
           quantity: quantity,
           client_id: client.id,
           stock_kind: stock_kind,
+          expired_at: expired_at,
           stocks: lock_stocks_for_sale_and_return
         )
       end
@@ -28,7 +30,7 @@ module SaleOrders
 
     private
 
-    attr_reader :client, :stock_kind, :unit_price, :quantity
+    attr_reader :client, :stock_kind, :unit_price, :quantity, :expired_at
 
     def enough_stocks?
       available_stocks.count >= quantity

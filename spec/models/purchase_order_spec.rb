@@ -12,10 +12,12 @@ RSpec.describe PurchaseOrder, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:uuid) }
-    it { should validate_presence_of(:type) }
-    it { should validate_presence_of(:status) }
-    it { should validate_presence_of(:unit_price) }
-    it { should validate_presence_of(:quantity) }
+    it { is_expected.to validate_presence_of(:uuid) }
+    it { is_expected.to validate_presence_of(:type) }
+    it { is_expected.to validate_presence_of(:status) }
+    it { is_expected.to validate_presence_of(:unit_price) }
+    it { is_expected.to validate_presence_of(:quantity) }
+    it { is_expected.to validate_presence_of(:stock_kind) }
+    it { is_expected.to validate_presence_of(:expired_at) }
   end
 end

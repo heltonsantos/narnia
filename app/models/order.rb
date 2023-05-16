@@ -1,11 +1,11 @@
 class Order < ApplicationRecord
   include AASM
 
-  has_many :stocks
+  has_many :stocks, dependent: nil
 
   belongs_to :client
 
-  validates :uuid, :type, :status, :unit_price, :quantity, :stock_kind, presence: true
+  validates :uuid, :type, :status, :unit_price, :quantity, :stock_kind, :expired_at, presence: true
 
   aasm column: :status do
     state :pending, initial: true

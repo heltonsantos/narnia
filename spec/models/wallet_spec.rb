@@ -11,7 +11,7 @@ RSpec.describe Wallet, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:client_id) }
-    it { should validate_presence_of(:balance) }
+    it { is_expected.to validate_presence_of(:client_id) }
+    it { is_expected.to validate_presence_of(:balance) }
   end
 end

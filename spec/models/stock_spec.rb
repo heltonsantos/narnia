@@ -11,9 +11,9 @@ RSpec.describe Stock, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:uuid) }
-    it { should validate_presence_of(:kind) }
-    it { should validate_presence_of(:status) }
+    it { is_expected.to validate_presence_of(:uuid) }
+    it { is_expected.to validate_presence_of(:kind) }
+    it { is_expected.to validate_presence_of(:status) }
   end
 
   describe 'aasm' do

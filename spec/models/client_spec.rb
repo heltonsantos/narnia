@@ -11,8 +11,8 @@ RSpec.describe Client, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:uuid) }
-    it { should validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:uuid) }
+    it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:uuid) }
   end
 end
