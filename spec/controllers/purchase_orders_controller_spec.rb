@@ -17,12 +17,17 @@ RSpec.describe PurchaseOrdersController, type: :controller do
 
     let!(:wallet) { create(:wallet, client: client, balance: 150.0) }
 
+    before do
+      allow(ProcessPurchaseOrderWorker).to receive(:perform_in).and_return(true)
+    end
+
     context 'when there is enough balance' do
       it 'creates a purchase order' do
         expect { create_purchase_orders }.to change(PurchaseOrder, :count).by(1)
 
         expect(response).to be_successful
         expect(response.status).to eq(201)
+        expect(ProcessPurchaseOrderWorker).to have_received(:perform_in).with(1.minute, PurchaseOrder.last.id)
       end
     end
 
@@ -42,6 +47,7 @@ RSpec.describe PurchaseOrdersController, type: :controller do
 
         expect(response).to be_successful
         expect(response.status).to eq(201)
+        expect(ProcessPurchaseOrderWorker).to have_received(:perform_in).with(1.minute, PurchaseOrder.last.id)
       end
     end
 
@@ -61,6 +67,7 @@ RSpec.describe PurchaseOrdersController, type: :controller do
         expect(response).not_to be_successful
         expect(response.status).to eq(422)
         expect(JSON.parse(response.body)).to eq({ 'error' => 'Validation failed: Stock kind is invalid' })
+        expect(ProcessPurchaseOrderWorker).not_to have_received(:perform_in)
       end
     end
 
@@ -73,6 +80,7 @@ RSpec.describe PurchaseOrdersController, type: :controller do
         expect(response).not_to be_successful
         expect(response.status).to eq(422)
         expect(JSON.parse(response.body)).to eq({ 'error' => 'The wallet does not have enough balance to complete the transaction.' })
+        expect(ProcessPurchaseOrderWorker).not_to have_received(:perform_in)
       end
     end
 
@@ -92,6 +100,7 @@ RSpec.describe PurchaseOrdersController, type: :controller do
         expect(response).not_to be_successful
         expect(response.status).to eq(404)
         expect(JSON.parse(response.body)).to eq({ 'error' => 'Couldn\'t find Client' })
+        expect(ProcessPurchaseOrderWorker).not_to have_received(:perform_in)
       end
     end
   end

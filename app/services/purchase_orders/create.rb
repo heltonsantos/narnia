@@ -16,7 +16,7 @@ module PurchaseOrders
       raise Wallets::EnoughBalanceError unless enough_balance?
 
       ActiveRecord::Base.transaction do
-        PurchaseOrder.create!(
+        purchase_order = PurchaseOrder.create!(
           uuid: SecureRandom.uuid,
           unit_price: unit_price,
           quantity: quantity,
@@ -24,6 +24,10 @@ module PurchaseOrders
           stock_kind: stock_kind,
           expired_at: expired_at
         )
+
+        ProcessPurchaseOrderWorker.perform_in(1.minute, purchase_order.id)
+
+        purchase_order
       end
     end
 
