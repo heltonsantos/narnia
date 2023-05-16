@@ -5,7 +5,7 @@ class Order < ApplicationRecord
 
   belongs_to :client
 
-  validates :uuid, :type, :status, :unit_price, :quantity, presence: true
+  validates :uuid, :type, :status, :unit_price, :quantity, :stock_kind, presence: true
 
   aasm column: :status do
     state :pending, initial: true

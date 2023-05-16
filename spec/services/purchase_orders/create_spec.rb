@@ -28,7 +28,8 @@ RSpec.describe PurchaseOrders::Create do
         expect(PurchaseOrder.last).to have_attributes(
           client_id: client.id,
           unit_price: 10.0,
-          quantity: 10
+          quantity: 10,
+          stock_kind: 'vibranium'
         )
       end
     end

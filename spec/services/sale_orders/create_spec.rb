@@ -33,6 +33,7 @@ RSpec.describe SaleOrders::Create do
           client_id: client.id,
           unit_price: 10.0,
           quantity: 10,
+          stock_kind: 'vibranium',
           stocks: be_a(ActiveRecord::Associations::CollectionProxy)
         )
 

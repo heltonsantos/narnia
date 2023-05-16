@@ -20,6 +20,7 @@ module SaleOrders
           unit_price: unit_price,
           quantity: quantity,
           client_id: client.id,
+          stock_kind: stock_kind,
           stocks: lock_stocks_for_sale_and_return
         )
       end

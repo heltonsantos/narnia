@@ -19,7 +19,8 @@ module PurchaseOrders
           uuid: SecureRandom.uuid,
           unit_price: unit_price,
           quantity: quantity,
-          client_id: client.id
+          client_id: client.id,
+          stock_kind: stock_kind
         )
       end
     end

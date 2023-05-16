@@ -6,6 +6,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.string :status
       t.decimal :unit_price
       t.integer :quantity
+      t.string :stock_kind
       t.datetime :scheduled_at
       t.datetime :executed_at
       t.datetime :failed_at

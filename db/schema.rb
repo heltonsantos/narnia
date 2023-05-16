@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2023_05_15_203215) do
     t.string "status"
     t.decimal "unit_price"
     t.integer "quantity"
+    t.string "stock_kind"
     t.datetime "scheduled_at"
     t.datetime "executed_at"
     t.datetime "failed_at"
