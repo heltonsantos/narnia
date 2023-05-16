@@ -13,6 +13,7 @@ module SaleOrders
     end
 
     def call!
+      raise Stocks::InvalidStockKindError unless Stock.kinds.include?(stock_kind)
       raise Wallets::EnoughStocksError unless enough_stocks?
 
       ActiveRecord::Base.transaction do

@@ -4,6 +4,7 @@ class PurchaseOrdersController < ApplicationController
   include OrderConcern
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_error
+  rescue_from ActiveRecord::RecordInvalid, with: :record_invalid_error
   rescue_from Wallets::EnoughBalanceError, with: :enough_balance_error
 
   before_action :client, only: :create

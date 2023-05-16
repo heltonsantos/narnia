@@ -30,4 +30,12 @@ class Order < ApplicationRecord
       transitions from: :processing, to: :failed
     end
   end
+
+  validate :validate_stock_kind
+
+  private
+
+  def validate_stock_kind
+    errors.add(:stock_kind, 'is invalid') unless Stock.kinds.include?(stock_kind)
+  end
 end

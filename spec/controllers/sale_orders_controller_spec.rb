@@ -47,6 +47,25 @@ RSpec.describe SaleOrdersController, type: :controller do
       end
     end
 
+    context 'when provide a invalid stock_kind' do
+      let(:params) do
+        {
+          client_uuid: client.uuid,
+          stock_kind: :abc,
+          unit_price: 10.0,
+          quantity: 10
+        }
+      end
+
+      it 'raises an error' do
+        expect { create_sale_orders }.not_to change(SaleOrder, :count)
+
+        expect(response).not_to be_successful
+        expect(response.status).to eq(422)
+        expect(JSON.parse(response.body)).to eq({ 'error' => 'Stock kind is invalid.' })
+      end
+    end
+
     context 'when there is not enough balance' do
       let(:stocks) { create_list(:stock, 8, wallet: wallet) }
 

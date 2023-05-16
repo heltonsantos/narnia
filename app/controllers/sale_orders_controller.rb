@@ -5,6 +5,7 @@ class SaleOrdersController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_error
   rescue_from Wallets::EnoughStocksError, with: :enough_stock_error
+  rescue_from Stocks::InvalidStockKindError, with: :invalid_stock_kind_error
 
   before_action :client, only: :create
 
