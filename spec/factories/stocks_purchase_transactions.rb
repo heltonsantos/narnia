@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :transaction do
+  factory :stocks_purchase_transaction do
     uuid { SecureRandom.uuid }
     type { 'StocksPurchaseTransaction' }
     nature { :outflow }

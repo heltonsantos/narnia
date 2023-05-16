@@ -2,8 +2,8 @@ class CreateTransactions < ActiveRecord::Migration[6.1]
   def change
     create_table :transactions do |t|
       t.string :uuid
+      t.string :type
       t.integer :nature
-      t.integer :category
       t.decimal :value
       t.string :description
 

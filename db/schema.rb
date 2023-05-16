@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_203215) do
 
   create_table "transactions", force: :cascade do |t|
     t.string "uuid"
+    t.string "type"
     t.integer "nature"
-    t.integer "category"
     t.decimal "value"
     t.string "description"
     t.bigint "wallet_id", null: false

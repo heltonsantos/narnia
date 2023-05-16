@@ -1,0 +1,2 @@
+class StocksPurchaseTransaction < Transaction
+end

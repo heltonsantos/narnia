@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Transaction, type: :model do
+RSpec.describe StocksSaleTransaction, type: :model do
   describe 'FactoryBot' do
-    it { expect(build(:transaction)).to be_valid }
+    it { expect(build(:stocks_sale_transaction)).to be_valid }
   end
 
   context 'with relationships' do
