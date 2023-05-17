@@ -1,5 +1,5 @@
 module PurchaseOrders
-  class Create
+  class Process
     def initialize(purchase_order:)
       @purchase_order = purchase_order
       @wallet = @purchase_order.client.wallet
@@ -12,13 +12,13 @@ module PurchaseOrders
     def call!
       purchase_order.process!
 
-      return reenqueue unless enough_stocks_to_buy?
+      return reenqueue unless enough_stocks_on_sale?
 
       purchase_order.with_lock do
         StocksPurchaseTransactions::Create.call!(wallet: wallet, value: total_price, description: description)
 
         purchased_stocks.group_by(&:order).each do |sale_order, stocks_to_sell|
-          SaleOrders::Create.call!(sale_order: sale_order, purchase_order: purchase_order, stocks_to_sell: stocks_to_sell)
+          SaleOrders::Process.call!(sale_order: sale_order, purchase_order: purchase_order, stocks_to_sell: stocks_to_sell)
         end
 
         purchase_order.stocks = purchased_stocks
@@ -31,7 +31,7 @@ module PurchaseOrders
     attr_reader :purchase_order, :wallet
 
     def stocks_on_sale
-      @stocks_on_sale ||= Stock.stocks_on_sale(purchase_order.stock_type)
+      @stocks_on_sale ||= Stock.stocks_on_sale(purchase_order.stock_kind)
     end
 
     def enough_stocks_on_sale?
@@ -49,7 +49,7 @@ module PurchaseOrders
     end
 
     def description
-      "Purchase order ##{purchase_order.id} - #{purchase_order.quantity} stocks of #{purchase_order.stock_type} " \
+      "Purchase order ##{purchase_order.id} - #{purchase_order.quantity} stocks of #{purchase_order.stock_kind} " \
         "for #{purchase_order.unit_price} each - Total: #{total_price}"
     end
 

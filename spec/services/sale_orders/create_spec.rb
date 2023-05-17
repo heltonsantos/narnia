@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SaleOrders::Create do
-  describe '#call' do
+  describe '#call!' do
     subject(:service) { described_class.new(params) }
 
     let(:params) do

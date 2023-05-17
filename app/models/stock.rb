@@ -24,5 +24,5 @@ class Stock < ApplicationRecord
     end
   end
 
-  scope :stocks_on_sale, ->(stock_type) { on_sale.where(stock_type: stock_type) }
+  scope :stocks_on_sale, ->(kind) { on_sale.where(kind: kind) }
 end

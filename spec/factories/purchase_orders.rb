@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :purchase_order do
     uuid { SecureRandom.uuid }
     status { 'pending' }
-    unit_price { '9.99' }
+    unit_price { 9.99 }
     quantity { 1 }
     stock_kind { 'vibranium' }
     expired_at { Time.zone.today }

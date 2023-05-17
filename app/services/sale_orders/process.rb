@@ -1,5 +1,5 @@
 module SaleOrders
-  class Create
+  class Process
     def initialize(sale_order:, purchase_order:, stocks_to_sell:)
       @sale_order = sale_order
       @purchase_order = purchase_order
@@ -34,7 +34,7 @@ module SaleOrders
     end
 
     def description
-      "Sale order ##{sale_order.id} - #{sale_order.quantity} stocks of #{sale_order.stock_type} " \
+      "Sale order ##{sale_order.id} - #{sale_order.quantity} stocks of #{sale_order.stock_kind} " \
         "for #{sale_order.unit_price} each - Total: #{total_price}"
     end
   end
