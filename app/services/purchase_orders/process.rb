@@ -39,9 +39,9 @@ module PurchaseOrders
     end
 
     def reenqueue
-      return purchase_order.expire! if purchase_order.expired_at > Time.zone.now
+      return purchase_order.expire! if purchase_order.expired_at < Date.current
 
-      ProcessPurchaseOrderWorker.perform_in(1.minute, purchase_order.id)
+      ProcessPurchaseOrderWorker.perform_in(10.minutes, purchase_order.id)
     end
 
     def total_price
