@@ -127,5 +127,22 @@ RSpec.describe PurchaseOrders::Process do
         end
       end
     end
+
+    context 'when raise error' do
+      before do
+        allow(StocksSaleTransaction).to receive(:create!).and_raise(StandardError)
+      end
+
+      it 'does rollback and raise error' do
+        expect { service.call! }.to raise_error(StandardError)
+
+        expect(StocksPurchaseTransaction.count).to eq(0)
+        expect(purchase_order.reload.status).to eq('processing')
+        expect(purchase_wallet.reload.balance).to eq(150.0)
+        expect(StocksSaleTransaction.count).to eq(0)
+        expect(sale_order.reload.status).to eq('pending')
+        expect(sale_wallet.reload.balance).to eq(250.0)
+      end
+    end
   end
 end
