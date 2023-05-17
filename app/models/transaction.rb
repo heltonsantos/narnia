@@ -5,6 +5,7 @@ class Transaction < ApplicationRecord
 
   enum nature: { outflow: 0, inflow: 1 }
 
+  before_validation :set_uuid
   before_validation :set_nature
   before_validation :ensure_value
 
@@ -12,7 +13,10 @@ class Transaction < ApplicationRecord
 
   private
 
-  def set_nature
+  def set_uuid
+    return if uuid.present?
+
+    self.uuid = SecureRandom.uuid
   end
 
   def ensure_value

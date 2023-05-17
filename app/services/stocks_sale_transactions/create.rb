@@ -12,7 +12,7 @@ module StocksSaleTransactions
 
     def call!
       wallet.with_lock do
-        StocksSaleTransactions.create!(
+        StocksSaleTransaction.create!(
           wallet_id: wallet.id,
           value: value,
           description: description
