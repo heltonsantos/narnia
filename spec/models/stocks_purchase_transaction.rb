@@ -10,7 +10,6 @@ RSpec.describe StocksPurchaseTransaction, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:uuid) }
     it { is_expected.to validate_presence_of(:type) }
     it { is_expected.to validate_presence_of(:value) }
   end

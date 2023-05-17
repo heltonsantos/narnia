@@ -14,7 +14,7 @@ module StocksPurchaseTransactions
       raise Wallets::EnoughBalanceError unless enough_balance?
 
       wallet.with_lock do
-        StocksPurchaseTransactions.create!(
+        StocksPurchaseTransaction.create!(
           wallet_id: wallet.id,
           value: value,
           description: description
