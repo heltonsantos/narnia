@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rubocop-performance', '1.12.0'
   gem 'rubocop-rails', '2.12.4'
   gem 'rubocop-rspec', '2.11.1'
+  gem 'rspec-sidekiq'
 end
 
 group :development do
