@@ -16,6 +16,14 @@ RSpec.describe StocksPurchaseTransaction, type: :model do
 
   describe 'callbacks' do
     describe 'before_validation' do
+      describe '#set_uuid' do
+        it 'set uuid' do
+          transaction = create(:stocks_sale_transaction, uuid: nil)
+
+          expect(transaction.uuid).to be_present
+        end
+      end
+
       describe '#set_nature' do
         it 'set nature to outflow' do
           transaction = create(:stocks_purchase_transaction, nature: :inflow)
