@@ -1,7 +1,7 @@
 module PurchaseOrders
   class Create
-    def initialize(id:)
-      @purchase_order = PurchaseOrder.find(id)
+    def initialize(purchase_order:)
+      @purchase_order = purchase_order
       @wallet = @purchase_order.client.wallet
     end
 
@@ -14,24 +14,28 @@ module PurchaseOrders
 
       return reenqueue unless enough_stocks_to_buy?
 
-      ActiveRecord::Base.transaction do
-        wallet.with_lock do
-          raise Wallets::EnoughBalanceError if enough_balance?
+      purchase_order.with_lock do
+        StocksPurchaseTransactions::Create.call!(wallet: wallet, value: total_price, description: description)
 
+        purchased_stocks.group_by(&:order).each do |sale_order, stocks_to_sell|
+          SaleOrders::Create.call!(sale_order: sale_order, purchase_order: purchase_order, stocks_to_sell: stocks_to_sell)
         end
+
+        purchase_order.stocks = purchased_stocks
+        purchase_order.complete!
       end
     end
 
     private
 
-    attr_reader :purchase_order, :client
+    attr_reader :purchase_order, :wallet
 
-    def stocks_to_buy
-      @stocks_to_buy ||= Stock.stocks_to_buy(purchase_order.stock_type)
+    def stocks_on_sale
+      @stocks_on_sale ||= Stock.stocks_on_sale(purchase_order.stock_type)
     end
 
-    def enough_stocks_to_buy?
-      stocks_to_buy.count >= purchase_order.quantity
+    def enough_stocks_on_sale?
+      stocks_on_sale.count >= purchase_order.quantity
     end
 
     def reenqueue
@@ -44,8 +48,13 @@ module PurchaseOrders
       @total_price ||= purchase_order.unit_price * purchase_order.quantity
     end
 
-    def enough_balance?
-      wallet.balance >= unit_price * quantity
+    def description
+      "Purchase order ##{purchase_order.id} - #{purchase_order.quantity} stocks of #{purchase_order.stock_type} " \
+        "for #{purchase_order.unit_price} each - Total: #{total_price}"
+    end
+
+    def purchased_stocks
+      @purchased_stocks ||= stocks_on_sale.order(created_at: :asc).limit(purchase_order.quantity)
     end
   end
 end

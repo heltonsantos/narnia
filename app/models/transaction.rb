@@ -8,7 +8,12 @@ class Transaction < ApplicationRecord
   before_validation :set_nature
   before_validation :ensure_value
 
+  after_save :update_wallet_balance
+
   private
+
+  def set_nature
+  end
 
   def ensure_value
     return if value.nil?
@@ -18,5 +23,9 @@ class Transaction < ApplicationRecord
     elsif inflow?
       self.value = value.abs
     end
+  end
+
+  def update_wallet_balance
+    wallet.update!(balance: wallet.balance + value)
   end
 end
