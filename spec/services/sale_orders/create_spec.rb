@@ -48,5 +48,20 @@ RSpec.describe SaleOrders::Create do
         expect { service.call! }.to raise_error(Wallets::EnoughStocksError)
       end
     end
+
+    context 'when provide invalid stock kind' do
+      let(:params) do
+        {
+          client: client,
+          stock_kind: :invalid,
+          unit_price: 10.0,
+          quantity: 10
+        }
+      end
+
+      it 'raises an error' do
+        expect { service.call! }.to raise_error(Stocks::InvalidStockKindError)
+      end
+    end
   end
 end
