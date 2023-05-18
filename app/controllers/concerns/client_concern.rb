@@ -4,6 +4,6 @@ module ClientConcern
   private
 
   def client
-    @client ||= Client.find_by!(uuid: params['client_uuid'])
+    @client ||= Client.find_by!(uuid: params['uuid'] || params['client_uuid'])
   end
 end
