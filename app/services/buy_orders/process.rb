@@ -33,7 +33,7 @@ module BuyOrders
     attr_reader :buy_order, :wallet
 
     def stocks_on_sale
-      @stocks_on_sale ||= Stock.stocks_on_sale(buy_order.stock_kind)
+      @stocks_on_sale ||= Stock.stocks_on_sale(buy_order.stock_kind).where.not(wallet_id: wallet.id)
     end
 
     def enough_stocks_on_sale?

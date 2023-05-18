@@ -12,6 +12,8 @@ module SaleOrders
     end
 
     def call!
+      validate_clients!
+
       sale_order.process!
 
       ActiveRecord::Base.transaction do
@@ -28,6 +30,10 @@ module SaleOrders
     private
 
     attr_reader :sale_order, :buy_order, :wallet, :stocks_to_sell
+
+    def validate_clients!
+      raise Orders::SameClientError if sale_order.client.id == buy_order.client.id
+    end
 
     def total_price
       @total_price ||= sale_order.unit_price * stocks_to_sell.count
