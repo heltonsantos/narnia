@@ -13,6 +13,7 @@ module Stocks
       ActiveRecord::Base.transaction do
         stocks.each do |stock|
           stock.wallet = wallet
+          stock.order = nil
           stock.available!
         end
       end

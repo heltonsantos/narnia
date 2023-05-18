@@ -21,6 +21,7 @@ module SaleOrders
 
         sale_order.with_lock do
           sale_order.stocks = sale_order.stocks - stocks_to_sell
+          sale_order.quantity_sold = sale_order.quantity_sold + stocks_to_sell.count
 
           sale_order.stocks.empty? ? sale_order.complete! : sale_order.partial_complete!
         end

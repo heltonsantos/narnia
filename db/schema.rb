@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_203215) do
     t.string "type"
     t.string "status"
     t.decimal "unit_price"
-    t.integer "quantity"
+    t.integer "quantity", default: 0
+    t.integer "quantity_sold", default: 0
     t.string "stock_kind"
     t.string "error_message"
     t.integer "retry_count", default: 0

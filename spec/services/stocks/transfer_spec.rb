@@ -23,5 +23,11 @@ RSpec.describe Stocks::Transfer do
 
       expect(stocks).to be_all(&:available?)
     end
+
+    it 'changes stocks order to nil' do
+      service.call!
+
+      expect(stocks).to be_all { |stock| stock.order.nil? }
+    end
   end
 end
