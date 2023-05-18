@@ -19,7 +19,7 @@ class Order < ApplicationRecord
     state :retrying
 
     event :process do
-      transitions from: :pending, to: :processing, success: :set_processing_at
+      transitions from: %i[pending partial_completed retrying], to: :processing, success: %i[set_processing_at clear_retry_fields]
     end
 
     event :complete do
@@ -31,7 +31,7 @@ class Order < ApplicationRecord
     end
 
     event :fail do
-      transitions from: :processing, to: :failed, success: :set_failed_at
+      transitions from: %i[processing retrying], to: :failed, success: :set_failed_at
     end
 
     event :expire do
@@ -73,5 +73,9 @@ class Order < ApplicationRecord
 
   def set_processing_at
     update!(processing_at: Time.zone.now)
+  end
+
+  def clear_retry_fields
+    update!(retry_count: 0, error_message: nil)
   end
 end
