@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PurchaseOrders::Create do
+RSpec.describe BuyOrders::Create do
   describe '#call!' do
     subject(:service) { described_class.new(params) }
 
@@ -18,18 +18,18 @@ RSpec.describe PurchaseOrders::Create do
     let!(:wallet) { create(:wallet, client: client, balance: 150.0) }
 
     before do
-      allow(ProcessPurchaseOrderWorker).to receive(:perform_in).and_return(true)
+      allow(ProcessBuyOrderWorker).to receive(:perform_in).and_return(true)
     end
 
     context 'when there is enough balance' do
-      it 'creates a purchase order' do
-        expect { service.call! }.to change(PurchaseOrder, :count).by(1)
+      it 'creates a buy order' do
+        expect { service.call! }.to change(BuyOrder, :count).by(1)
       end
 
       it 'creates with correct data' do
         service.call!
 
-        expect(PurchaseOrder.last).to have_attributes(
+        expect(BuyOrder.last).to have_attributes(
           client_id: client.id,
           unit_price: 10.0,
           quantity: 10,
@@ -40,7 +40,7 @@ RSpec.describe PurchaseOrders::Create do
       it 'enqueues a worker' do
         service.call!
 
-        expect(ProcessPurchaseOrderWorker).to have_received(:perform_in).with(1.minute, PurchaseOrder.last.id)
+        expect(ProcessBuyOrderWorker).to have_received(:perform_in).with(1.minute, BuyOrder.last.id)
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe PurchaseOrders::Create do
       it 'raises an error' do
         expect { service.call! }.to raise_error(Wallets::EnoughBalanceError)
 
-        expect(ProcessPurchaseOrderWorker).not_to have_received(:perform_in)
+        expect(ProcessBuyOrderWorker).not_to have_received(:perform_in)
       end
     end
   end

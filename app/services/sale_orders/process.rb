@@ -1,8 +1,8 @@
 module SaleOrders
   class Process
-    def initialize(sale_order:, purchase_order:, stocks_to_sell:)
+    def initialize(sale_order:, buy_order:, stocks_to_sell:)
       @sale_order = sale_order
-      @purchase_order = purchase_order
+      @buy_order = buy_order
       @wallet = @sale_order.client.wallet
       @stocks_to_sell = stocks_to_sell
     end
@@ -27,7 +27,7 @@ module SaleOrders
 
     private
 
-    attr_reader :sale_order, :purchase_order, :wallet, :stocks_to_sell
+    attr_reader :sale_order, :buy_order, :wallet, :stocks_to_sell
 
     def total_price
       @total_price ||= sale_order.unit_price * stocks_to_sell.count

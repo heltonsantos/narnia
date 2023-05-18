@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe StocksPurchaseTransaction, type: :model do
+RSpec.describe StocksBuyTransaction, type: :model do
   describe 'FactoryBot' do
-    it { expect(build(:stocks_purchase_transaction)).to be_valid }
+    it { expect(build(:stocks_buy_transaction)).to be_valid }
   end
 
   context 'with relationships' do
@@ -26,7 +26,7 @@ RSpec.describe StocksPurchaseTransaction, type: :model do
 
       describe '#set_nature' do
         it 'set nature to outflow' do
-          transaction = create(:stocks_purchase_transaction, nature: :inflow)
+          transaction = create(:stocks_buy_transaction, nature: :inflow)
 
           expect(transaction.nature).to eq('outflow')
         end
@@ -34,7 +34,7 @@ RSpec.describe StocksPurchaseTransaction, type: :model do
 
       describe '#ensure_value' do
         it 'set value to negative' do
-          transaction = create(:stocks_purchase_transaction, value: 9.99)
+          transaction = create(:stocks_buy_transaction, value: 9.99)
 
           expect(transaction.value).to eq(-9.99)
         end

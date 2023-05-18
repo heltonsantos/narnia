@@ -1,4 +1,4 @@
-class PurchaseOrdersController < ApplicationController
+class BuyOrdersController < ApplicationController
   include ErrorHandling
   include ClientConcern
   include OrderConcern
@@ -10,7 +10,7 @@ class PurchaseOrdersController < ApplicationController
   before_action :client, only: :create
 
   def create
-    order = PurchaseOrders::Create.call!(
+    order = BuyOrders::Create.call!(
       client: client,
       stock_kind: create_params['stock_kind'],
       unit_price: create_params['unit_price'],

@@ -39,7 +39,7 @@ RSpec.describe SaleOrdersController, type: :controller do
         }
       end
 
-      it 'creates a purchase order' do
+      it 'creates a buy order' do
         expect { create_sale_orders }.to change(SaleOrder, :count).by(1)
 
         expect(response).to be_successful

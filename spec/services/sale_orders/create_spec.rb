@@ -20,7 +20,7 @@ RSpec.describe SaleOrders::Create do
     let!(:stocks) { create_list(:stock, 15, wallet: wallet) }
 
     context 'when there is enough balance' do
-      it 'creates a purchase order' do
+      it 'creates a buy order' do
         expect { service.call! }.to change(SaleOrder, :count).by(1)
       end
 

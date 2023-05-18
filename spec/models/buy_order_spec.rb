@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe PurchaseOrder, type: :model do
+RSpec.describe BuyOrder, type: :model do
   describe 'FactoryBot' do
-    it { expect(build(:purchase_order)).to be_valid }
-    it { expect(build(:purchase_order).type).to eq('PurchaseOrder') }
+    it { expect(build(:buy_order)).to be_valid }
+    it { expect(build(:buy_order).type).to eq('BuyOrder') }
   end
 
   context 'with relationships' do
@@ -22,7 +22,7 @@ RSpec.describe PurchaseOrder, type: :model do
   end
 
   describe 'aasm' do
-    let(:order) { create(:purchase_order) }
+    let(:order) { create(:buy_order) }
 
     it { expect(order).to have_state(:pending) }
     it { expect(order).to transition_from(:pending).to(:processing).on_event(:process) }

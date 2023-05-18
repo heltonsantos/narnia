@@ -1,4 +1,4 @@
-module StocksPurchaseTransactions
+module StocksBuyTransactions
   class Create
     def initialize(wallet:, value:, description:)
       @wallet = wallet
@@ -14,7 +14,7 @@ module StocksPurchaseTransactions
       raise Wallets::EnoughBalanceError unless enough_balance?
 
       wallet.with_lock do
-        StocksPurchaseTransaction.create!(
+        StocksBuyTransaction.create!(
           wallet_id: wallet.id,
           value: value,
           description: description

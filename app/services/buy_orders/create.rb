@@ -1,4 +1,4 @@
-module PurchaseOrders
+module BuyOrders
   class Create
     def initialize(client:, stock_kind:, unit_price:, quantity:, expired_at: nil)
       @client = client
@@ -16,7 +16,7 @@ module PurchaseOrders
       raise Wallets::EnoughBalanceError unless enough_balance?
 
       ActiveRecord::Base.transaction do
-        purchase_order = PurchaseOrder.create!(
+        buy_order = BuyOrder.create!(
           uuid: SecureRandom.uuid,
           unit_price: unit_price,
           quantity: quantity,
@@ -25,9 +25,9 @@ module PurchaseOrders
           expired_at: expired_at
         )
 
-        ProcessPurchaseOrderWorker.perform_in(1.minute, purchase_order.id)
+        ProcessBuyOrderWorker.perform_in(1.minute, buy_order.id)
 
-        purchase_order
+        buy_order
       end
     end
 

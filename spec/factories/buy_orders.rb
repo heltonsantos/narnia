@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :purchase_order do
+  factory :buy_order do
     uuid { SecureRandom.uuid }
     status { 'pending' }
     unit_price { 9.99 }

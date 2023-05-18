@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :wallets
 
   resources :clients, param: :uuid do
-    resources :purchase_orders, only: %i[create]
+    resources :buy_orders, only: %i[create]
     resources :sale_orders, only: %i[create]
   end
 end

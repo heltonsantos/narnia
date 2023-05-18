@@ -1,4 +1,4 @@
-class StocksPurchaseTransaction < Transaction
+class StocksBuyTransaction < Transaction
   private
 
   def set_nature
