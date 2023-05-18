@@ -1,4 +1,6 @@
 class Wallet < ApplicationRecord
+  has_paper_trail
+
   belongs_to :client
   has_many :stocks, dependent: :destroy
   has_many :transactions, dependent: :destroy

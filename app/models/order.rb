@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+  has_paper_trail
+
   include AASM
 
   has_many :stocks, dependent: nil

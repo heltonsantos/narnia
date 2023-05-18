@@ -1,4 +1,6 @@
 class Stock < ApplicationRecord
+  has_paper_trail
+
   include AASM
 
   belongs_to :wallet
