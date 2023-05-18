@@ -37,7 +37,7 @@ class Order < ApplicationRecord
     end
 
     event :retry do
-      transitions from: :processing, to: :retrying, success: :set_retryed_at
+      transitions from: %i[pending processing], to: :retrying, success: :set_retryed_at
     end
   end
 

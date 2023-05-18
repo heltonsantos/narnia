@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2023_05_15_203215) do
     t.integer "quantity"
     t.string "stock_kind"
     t.string "error_message"
-    t.integer "retry_count"
+    t.integer "retry_count", default: 0
     t.date "expired_at"
     t.datetime "processing_at"
     t.datetime "partial_completed_at"

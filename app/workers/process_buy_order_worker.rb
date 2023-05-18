@@ -5,6 +5,16 @@ class ProcessBuyOrderWorker
   sidekiq_retry_in { 10.minutes }
 
   def perform(id)
-    BuyOrders::Process.call!(buy_order: BuyOrder.find(id))
+    buy_order = BuyOrder.find(id)
+
+    begin
+      BuyOrders::Process.call!(buy_order: buy_order)
+    rescue StandardError => e
+      buy_order.error_message = e.message
+      buy_order.retry_count += 1
+      buy_order.retry!
+
+      raise e
+    end
   end
 end
