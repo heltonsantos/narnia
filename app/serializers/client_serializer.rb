@@ -1,5 +1,5 @@
 class ClientSerializer < ActiveModel::Serializer
-  attributes :uuid, :name, :balance, :stocks_summary, :orders_summary, :transactions_summary
+  attributes :id, :uuid, :name, :balance, :stocks_summary, :orders_summary, :transactions_summary
 
   def balance
     object.wallet.balance
@@ -10,10 +10,10 @@ class ClientSerializer < ActiveModel::Serializer
   end
 
   def orders_summary
-    object.orders.group(:status).count
+    object.orders.group(:type, :status).count.transform_keys { |k| k.join('.') }
   end
 
   def transactions_summary
-    object.transactions.group(:nature).count
+    object.transactions.group(:type, :nature).count.transform_keys { |k| k.join('.') }
   end
 end
