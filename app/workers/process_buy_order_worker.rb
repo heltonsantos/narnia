@@ -1,7 +1,7 @@
 class ProcessBuyOrderWorker
   include Sidekiq::Worker
 
-  sidekiq_options retry: true
+  sidekiq_options retry: true, queue: :process_buy_order
   sidekiq_retry_in { 10.minutes }
 
   def perform(id)
