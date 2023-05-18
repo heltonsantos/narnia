@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_203215) do
     t.string "uuid"
     t.integer "kind"
     t.string "status"
+    t.datetime "available_at"
+    t.datetime "on_sale_at"
     t.bigint "wallet_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

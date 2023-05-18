@@ -16,13 +16,23 @@ class Stock < ApplicationRecord
     state :on_sale
 
     event :sale do
-      transitions from: :available, to: :on_sale
+      transitions from: :available, to: :on_sale, success: :set_on_sale_at
     end
 
     event :available do
-      transitions from: :on_sale, to: :available
+      transitions from: :on_sale, to: :available, success: :set_available_at
     end
   end
 
   scope :stocks_on_sale, ->(kind) { on_sale.where(kind: kind) }
+
+  private
+
+  def set_available_at
+    update!(available_at: Time.zone.now)
+  end
+
+  def set_on_sale_at
+    update!(on_sale_at: Time.zone.now)
+  end
 end
