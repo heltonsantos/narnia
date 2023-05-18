@@ -24,7 +24,9 @@ module BuyOrders
         buy_order.stocks = buyed_stocks
         buy_order.complete!
 
-        #transfer_stocks_to_client
+        Stocks::Transfer.call!(stocks: buyed_stocks, wallet: wallet)
+
+        buy_order
       end
     end
 
