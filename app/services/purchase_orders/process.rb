@@ -10,7 +10,7 @@ module PurchaseOrders
     end
 
     def call!
-      purchase_order.process!
+      purchase_order.process! unless purchase_order.processing?
 
       return reenqueue unless enough_stocks_on_sale?
 
@@ -23,6 +23,8 @@ module PurchaseOrders
 
         purchase_order.stocks = purchased_stocks
         purchase_order.complete!
+
+        #transfer_stocks_to_client
       end
     end
 
