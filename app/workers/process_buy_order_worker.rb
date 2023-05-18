@@ -2,7 +2,7 @@ class ProcessBuyOrderWorker
   include Sidekiq::Worker
 
   sidekiq_options retry: true, queue: :process_buy_order
-  sidekiq_retry_in { 10.minutes }
+  sidekiq_retry_in { Rails.configuration.worker.process_buy_order_worker_retry_in.to_i.minutes }
 
   def perform(id)
     buy_order = BuyOrder.find(id)

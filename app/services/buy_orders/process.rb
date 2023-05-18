@@ -12,6 +12,8 @@ module BuyOrders
     def call!
       buy_order.process! unless buy_order.processing?
 
+      return buy_order.fail! if rached_retry_limit?
+      return buy_order.expire! if expired?
       return reenqueue unless enough_stocks_on_sale?
 
       buy_order.with_lock do
@@ -34,6 +36,14 @@ module BuyOrders
 
     attr_reader :buy_order, :wallet
 
+    def rached_retry_limit?
+      buy_order.retry_count >= Rails.configuration.narnia.process_buy_order_retry_limit.to_i
+    end
+
+    def expired?
+      buy_order.expired_at < Date.current
+    end
+
     def stocks_on_sale
       @stocks_on_sale ||= Stock.stocks_on_sale(buy_order.stock_kind).where.not(wallet_id: wallet.id)
     end
@@ -43,9 +53,10 @@ module BuyOrders
     end
 
     def reenqueue
-      return buy_order.expire! if buy_order.expired_at < Date.current
-
-      ProcessBuyOrderWorker.perform_in(10.minutes, buy_order.id)
+      ProcessBuyOrderWorker.perform_in(
+        Rails.configuration.worker.process_buy_order_worker_enqueue_delay.to_i.minutes,
+        buy_order.id
+      )
     end
 
     def total_price

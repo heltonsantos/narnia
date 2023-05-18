@@ -1,0 +1,12 @@
+default: &default
+  process_buy_order_worker_retry_in: <%= ENV['PROCESS_BUY_ORDER_WORKER_RETRY_IN'] || 5 %>
+  process_buy_order_worker_enqueue_delay: <%= ENV['PROCESS_BUY_ORDER_WORKER_ENQUEUE_DELAY'] || 10 %>
+
+development: &development
+  <<: *default
+
+test:
+  <<: *development
+
+production: &production
+  <<: *default
