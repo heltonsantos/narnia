@@ -30,10 +30,14 @@ ActiveRecord::Schema.define(version: 2023_05_15_203215) do
     t.decimal "unit_price"
     t.integer "quantity"
     t.string "stock_kind"
+    t.string "error_message"
+    t.integer "retry_count"
     t.date "expired_at"
-    t.datetime "executed_at"
-    t.datetime "failed_at"
+    t.datetime "processing_at"
+    t.datetime "partial_completed_at"
     t.datetime "completed_at"
+    t.datetime "failed_at"
+    t.datetime "retryed_at"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

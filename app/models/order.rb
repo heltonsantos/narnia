@@ -14,25 +14,30 @@ class Order < ApplicationRecord
     state :partial_completed
     state :failed
     state :expired
+    state :retrying
 
     event :process do
-      transitions from: :pending, to: :processing
+      transitions from: :pending, to: :processing, success: :set_processing_at
     end
 
     event :complete do
-      transitions from: %i[processing partial_completed], to: :completed
+      transitions from: %i[processing partial_completed], to: :completed, success: :set_completed_at
     end
 
     event :partial_complete do
-      transitions from: :processing, to: :partial_completed
+      transitions from: :processing, to: :partial_completed, success: :set_partial_completed_at
     end
 
     event :fail do
-      transitions from: :processing, to: :failed
+      transitions from: :processing, to: :failed, success: :set_failed_at
     end
 
     event :expire do
-      transitions from: :processing, to: :expired
+      transitions from: :processing, to: :expired, success: :set_expired_at
+    end
+
+    event :retry do
+      transitions from: :processing, to: :retrying, success: :set_retryed_at
     end
   end
 
@@ -42,5 +47,29 @@ class Order < ApplicationRecord
 
   def validate_stock_kind
     errors.add(:stock_kind, 'is invalid') unless Stock.kinds.include?(stock_kind)
+  end
+
+  def set_retryed_at
+    update!(retryed_at: Time.zone.now)
+  end
+
+  def set_expired_at
+    update!(expired_at: Time.zone.now)
+  end
+
+  def set_failed_at
+    update!(failed_at: Time.zone.now)
+  end
+
+  def set_partial_completed_at
+    update!(partial_completed_at: Time.zone.now)
+  end
+
+  def set_completed_at
+    update!(completed_at: Time.zone.now)
+  end
+
+  def set_processing_at
+    update!(processing_at: Time.zone.now)
   end
 end

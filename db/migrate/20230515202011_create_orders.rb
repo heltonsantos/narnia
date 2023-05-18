@@ -7,10 +7,14 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.decimal :unit_price
       t.integer :quantity
       t.string :stock_kind
+      t.string :error_message
+      t.integer :retry_count
       t.date :expired_at
-      t.datetime :executed_at
-      t.datetime :failed_at
+      t.datetime :processing_at
+      t.datetime :partial_completed_at
       t.datetime :completed_at
+      t.datetime :failed_at
+      t.datetime :retryed_at
 
       t.references :client, null: false, foreign_key: true
 

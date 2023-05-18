@@ -30,5 +30,6 @@ RSpec.describe SaleOrder, type: :model do
     it { expect(order).to transition_from(:processing).to(:partial_completed).on_event(:partial_complete) }
     it { expect(order).to transition_from(:processing).to(:failed).on_event(:fail) }
     it { expect(order).to transition_from(:processing).to(:expired).on_event(:expire) }
+    it { expect(order).to transition_from(:processing).to(:retrying).on_event(:retry) }
   end
 end
