@@ -26,10 +26,15 @@ RSpec.describe BuyOrder, type: :model do
 
     it { expect(order).to have_state(:pending) }
     it { expect(order).to transition_from(:pending).to(:processing).on_event(:process) }
+    it { expect(order).to transition_from(:partial_completed).to(:processing).on_event(:process) }
+    it { expect(order).to transition_from(:retrying).to(:processing).on_event(:process) }
     it { expect(order).to transition_from(:processing).to(:completed).on_event(:complete) }
+    it { expect(order).to transition_from(:partial_completed).to(:completed).on_event(:complete) }
     it { expect(order).to transition_from(:processing).to(:partial_completed).on_event(:partial_complete) }
     it { expect(order).to transition_from(:processing).to(:failed).on_event(:fail) }
+    it { expect(order).to transition_from(:retrying).to(:failed).on_event(:fail) }
     it { expect(order).to transition_from(:processing).to(:expired).on_event(:expire) }
     it { expect(order).to transition_from(:processing).to(:retrying).on_event(:retry) }
+    it { expect(order).to transition_from(:pending).to(:retrying).on_event(:retry) }
   end
 end
