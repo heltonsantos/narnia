@@ -7,10 +7,12 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
 
   resources :clients, param: :uuid do
-    resources :orders
-    resources :transactions
-    resources :stocks
+    resources :orders, only: %i[index]
+    resources :transactions, only: %i[index]
+    resources :stocks, only: %i[index]
     resources :buy_orders, only: %i[create]
     resources :sale_orders, only: %i[create]
   end
+
+  resources :book_orders, :only => [:index]
 end
