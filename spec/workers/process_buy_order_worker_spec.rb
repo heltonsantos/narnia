@@ -13,6 +13,8 @@ RSpec.describe ProcessBuyOrderWorker do
       allow(BuyOrders::Process).to receive(:call!).and_return(true)
     end
 
+    it { is_expected.to be_retryable true }
+
     it 'calls BuyOrders::Process service' do
       described_class.drain
 

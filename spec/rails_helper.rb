@@ -12,6 +12,7 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'aasm/rspec'
 require 'paper_trail/frameworks/rspec'
+require 'rspec-sidekiq'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

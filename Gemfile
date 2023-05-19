@@ -8,7 +8,6 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'sidekiq'
-gem 'sidekiq-unique-jobs'
 gem 'aasm', '5.2.0'
 gem 'paper_trail'
 gem 'active_model_serializers'
