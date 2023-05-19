@@ -14,5 +14,5 @@ Rails.application.routes.draw do
     resources :sale_orders, only: %i[create]
   end
 
-  resources :book_orders, :only => [:index]
+  resources :order_books, :only => [:index]
 end

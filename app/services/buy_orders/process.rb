@@ -14,7 +14,7 @@ module BuyOrders
 
       return buy_order.fail! if rached_retry_limit?
       return buy_order.expire! if expired?
-      return reenqueue unless enough_stocks_on_sale?
+      return enqueue_again unless enough_stocks_on_sale?
 
       buy_order.with_lock do
         StocksBuyTransactions::Create.call!(wallet: wallet, value: total_price, description: description)
@@ -52,7 +52,7 @@ module BuyOrders
       stocks_on_sale.count >= buy_order.quantity
     end
 
-    def reenqueue
+    def enqueue_again
       ProcessBuyOrderWorker.perform_in(
         Rails.configuration.worker.process_buy_order_worker_enqueue_delay.to_i.minutes,
         buy_order.id

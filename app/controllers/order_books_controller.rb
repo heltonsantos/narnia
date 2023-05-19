@@ -1,4 +1,4 @@
-class BookOrdersController < ApplicationController
+class OrderBooksController < ApplicationController
   include PaginationConcern
 
   def index

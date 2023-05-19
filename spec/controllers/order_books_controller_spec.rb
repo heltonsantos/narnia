@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BookOrdersController, type: :controller do
+RSpec.describe OrderBooksController, type: :controller do
   describe 'GET /order_books' do
     subject(:query_order_books) { get :index, format: :json }
 
@@ -11,7 +11,7 @@ RSpec.describe BookOrdersController, type: :controller do
       create(:sale_order, client: client, unit_price: 10.0, quantity: 10)
     end
 
-    it 'returns the book orders' do
+    it 'returns the order books' do
       query_order_books
 
       expect(response).to be_successful
