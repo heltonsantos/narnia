@@ -1,8 +1,7 @@
-#Generate data for tests
 require 'faker'
 
-if Rails.env.development? && Client.count.zero?
-  5.times do |i|
+if Rails.env.development?
+  10.times do |i|
     client = Client.create!(
       uuid: SecureRandom.uuid,
       name: Faker::Name.name
