@@ -78,3 +78,8 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+require 'database_cleaner/active_record'
+
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean

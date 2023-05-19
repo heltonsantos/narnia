@@ -77,6 +77,10 @@ GEM
     concurrent-ruby (1.1.10)
     connection_pool (2.3.0)
     crass (1.0.6)
+    database_cleaner-active_record (2.1.0)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     diff-lcs (1.5.0)
     erubi (1.11.0)
     factory_bot (5.1.2)
@@ -245,6 +249,7 @@ DEPENDENCIES
   active_model_serializers
   bootsnap (>= 1.4.4)
   byebug
+  database_cleaner-active_record
   factory_bot_rails (= 5.1.1)
   faker
   kaminari

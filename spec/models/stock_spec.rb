@@ -23,4 +23,21 @@ RSpec.describe Stock, type: :model do
     it { expect(stock).to transition_from(:available).to(:on_sale).on_event(:sale) }
     it { expect(stock).to transition_from(:on_sale).to(:available).on_event(:available) }
   end
+
+  describe 'scopes' do
+    let(:wallet) { create(:wallet) }
+
+    before do
+      create_list(:stock, 5, wallet: wallet)
+      create_list(:stock, 5, wallet: wallet, status: :on_sale)
+    end
+
+    describe 'available' do
+      it { expect(Stock.available.count).to eq(5) }
+    end
+
+    describe 'on_sale' do
+      it { expect(Stock.on_sale.count).to eq(5) }
+    end
+  end
 end
