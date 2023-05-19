@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BuyOrdersController, type: :controller do
-  describe 'POST clients/:uuid/buy_orders' do
+  describe 'POST /clients/:uuid/buy_orders' do
     subject(:create_buy_orders) { post :create, params: params, format: :json }
 
     let(:params) do
