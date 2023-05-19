@@ -1,7 +1,7 @@
 class ProcessBuyOrderWorker
   include Sidekiq::Worker
 
-  sidekiq_options retry: true
+  sidekiq_options lock: :until_executed, retry: true
   sidekiq_retry_in { Rails.configuration.worker.process_buy_order_worker_retry_in.to_i.minutes }
 
   def perform(id)
