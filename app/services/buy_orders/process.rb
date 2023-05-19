@@ -36,16 +36,24 @@ module BuyOrders
 
     attr_reader :buy_order, :wallet
 
+    def stocks_on_sale
+      @stocks_on_sale ||= Stock.stocks_on_sale(buy_order.stock_kind).where.not(wallet_id: wallet.id)
+    end
+
+    def buyed_stocks
+      @buyed_stocks ||= stocks_on_sale.order('order.created_at': :asc).limit(buy_order.quantity)
+    end
+
+    def total_price
+      @total_price ||= buy_order.unit_price * buy_order.quantity
+    end
+
     def rached_retry_limit?
       buy_order.retry_count >= Rails.configuration.narnia.process_buy_order_retry_limit.to_i
     end
 
     def expired?
       buy_order.expired_at < Date.current
-    end
-
-    def stocks_on_sale
-      @stocks_on_sale ||= Stock.stocks_on_sale(buy_order.stock_kind).where.not(wallet_id: wallet.id)
     end
 
     def enough_stocks_on_sale?
@@ -59,17 +67,9 @@ module BuyOrders
       )
     end
 
-    def total_price
-      @total_price ||= buy_order.unit_price * buy_order.quantity
-    end
-
     def description
       "Buy order ##{buy_order.id} - #{buy_order.quantity} stocks of #{buy_order.stock_kind} " \
         "for #{buy_order.unit_price} each - Total: #{total_price}"
-    end
-
-    def buyed_stocks
-      @buyed_stocks ||= stocks_on_sale.order(created_at: :asc).limit(buy_order.quantity)
     end
   end
 end

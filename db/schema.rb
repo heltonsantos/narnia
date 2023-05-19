@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2023_05_18_154259) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["type"], name: "index_orders_on_type"
   end
 
   create_table "stocks", force: :cascade do |t|
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 2023_05_18_154259) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "order_id"
+    t.index ["kind"], name: "index_stocks_on_kind"
     t.index ["order_id"], name: "index_stocks_on_order_id"
     t.index ["uuid"], name: "index_stocks_on_uuid", unique: true
     t.index ["wallet_id"], name: "index_stocks_on_wallet_id"
@@ -69,6 +71,7 @@ ActiveRecord::Schema.define(version: 2023_05_18_154259) do
     t.bigint "wallet_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["type"], name: "index_transactions_on_type"
     t.index ["uuid"], name: "index_transactions_on_uuid", unique: true
     t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
   end

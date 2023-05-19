@@ -10,6 +10,7 @@ class CreateStocks < ActiveRecord::Migration[6.1]
       t.references :wallet, null: false, foreign_key: true
 
       t.index :uuid, unique: true
+      t.index :kind
 
       t.timestamps
     end

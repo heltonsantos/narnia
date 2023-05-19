@@ -26,7 +26,7 @@ class Stock < ApplicationRecord
     end
   end
 
-  scope :stocks_on_sale, ->(kind) { on_sale.where(kind: kind) }
+  scope :stocks_on_sale, ->(kind) { on_sale.where(kind: kind).joins(:order).where(order: { type: 'SaleOrder' }) }
 
   private
 
