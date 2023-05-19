@@ -17,8 +17,8 @@ RSpec.describe BookOrdersController, type: :controller do
       expect(response).to be_successful
       expect(response.status).to eq(200)
       expect(response.body).to eq({
-        buy_orders: { '10.0' => 1 },
-        sale_orders: { '10.0' => 1 }
+        buy_orders: { '10.0.pending' => 1 },
+        sale_orders: { '10.0.pending' => 1 }
       }.to_json)
     end
   end

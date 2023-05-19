@@ -2,15 +2,16 @@ class BookOrdersController < ApplicationController
   include PaginationConcern
 
   def index
-    render json: query
+    render json: { buy_orders: buy_orders, sale_orders: sale_orders }
   end
 
   private
 
-  def query
-    {
-      buy_orders: BuyOrder.order(unit_price: :desc).page(page).per(per_page).group(:unit_price).count,
-      sale_orders: SaleOrder.order(unit_price: :asc).page(page).per(per_page).group(:unit_price).count
-    }
+  def buy_orders
+    BuyOrder.order(unit_price: :desc).page(page).per(per_page).group(:unit_price, :status).count.transform_keys { |k| k.join('.') }
+  end
+
+  def sale_orders
+    SaleOrder.order(unit_price: :asc).page(page).per(per_page).group(:unit_price, :status).count.transform_keys { |k| k.join('.') }
   end
 end
