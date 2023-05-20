@@ -8,7 +8,7 @@ if Rails.env.development? && Client.count.zero?
     )
 
     wallet = Wallet.create!(
-      balance: Faker::Number.decimal(l_digits: 3),
+      balance: Faker::Number.decimal(l_digits: 4),
       client_id: client.id
     )
 
