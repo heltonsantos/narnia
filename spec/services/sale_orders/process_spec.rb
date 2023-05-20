@@ -16,7 +16,7 @@ RSpec.describe SaleOrders::Process do
     let(:stocks_to_sell) { stocks_to_sale }
 
     let(:expected_stock_sale_transaction_description) do
-      "Sale order ##{sale_order.id} - #{sale_order.quantity} stocks of #{sale_order.stock_kind} " \
+      "Sale order ##{sale_order.uuid} - #{sale_order.quantity} stocks of #{sale_order.stock_kind} " \
         "for #{sale_order.unit_price} each - Total: #{total_price}"
     end
 

@@ -17,12 +17,12 @@ RSpec.describe BuyOrders::Process do
     let(:stocks_to_sale) { create_list(:stock, 7, status: :on_sale, wallet: sale_wallet) }
 
     let(:expected_stock_buy_transaction_description) do
-      "Buy order ##{buy_order.id} - #{buy_order.quantity} stocks of #{buy_order.stock_kind} " \
+      "Buy order ##{buy_order.uuid} - #{buy_order.quantity} stocks of #{buy_order.stock_kind} " \
         "for #{buy_order.unit_price} each - Total: #{buy_total_price}"
     end
 
     let(:expected_stock_sale_transaction_description) do
-      "Sale order ##{sale_order.id} - #{sale_order.quantity} stocks of #{sale_order.stock_kind} " \
+      "Sale order ##{sale_order.uuid} - #{sale_order.quantity} stocks of #{sale_order.stock_kind} " \
         "for #{sale_order.unit_price} each - Total: #{buy_total_price}"
     end
 

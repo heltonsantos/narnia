@@ -72,7 +72,7 @@ module BuyOrders
     end
 
     def description
-      "Buy order ##{buy_order.id} - #{buy_order.quantity} stocks of #{buy_order.stock_kind} " \
+      "Buy order ##{buy_order.uuid} - #{buy_order.quantity} stocks of #{buy_order.stock_kind} " \
         "for #{buy_order.unit_price} each - Total: #{total_price}"
     end
   end

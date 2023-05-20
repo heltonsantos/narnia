@@ -1,6 +1,6 @@
 require 'faker'
 
-if Rails.env.development?
+if Rails.env.development? && Client.count.zero?
   10.times do |i|
     client = Client.create!(
       uuid: SecureRandom.uuid,
