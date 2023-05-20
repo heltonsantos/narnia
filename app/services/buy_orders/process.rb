@@ -24,6 +24,7 @@ module BuyOrders
         end
 
         buy_order.stocks = buyed_stocks
+        buy_order.timelines.build(action: 'buy_order_processed', description: description)
         buy_order.complete!
 
         Stocks::Transfer.call!(stocks: buyed_stocks, wallet: wallet)
@@ -61,6 +62,9 @@ module BuyOrders
     end
 
     def enqueue_again
+      timeline_description = 'Buy order requeued by not enough stocks on sale'
+      buy_order.timelines.create!(action: 'buy_order_requeued', description: timeline_description)
+
       ProcessBuyOrderWorker.perform_in(
         Rails.configuration.worker.process_buy_order_worker_enqueue_delay.to_i.minutes,
         buy_order.id

@@ -16,7 +16,7 @@ module Stocks
         stocks.each do |stock|
           stock.wallet = new_wallet
           stock.order = nil
-          stock.timelines.create!(timline_params)
+          stock.timelines.build(timline_params)
           stock.available!
         end
       end

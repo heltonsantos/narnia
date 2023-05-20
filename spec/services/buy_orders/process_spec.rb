@@ -40,6 +40,12 @@ RSpec.describe BuyOrders::Process do
       expect { service.call! }.to change { buy_order.reload.status }.from('pending').to('completed')
     end
 
+    it 'creates timeline' do
+      expect { service.call! }.to change { buy_order.timelines.count }.by(1)
+      expect(buy_order.timelines.last.action).to eq('buy_order_processed')
+      expect(buy_order.timelines.last.description).to eq(expected_stock_buy_transaction_description)
+    end
+
     it 'updates buy wallet balance' do
       expect { service.call! }.to change { buy_wallet.reload.balance }.from(150.0).to(80.0)
     end
@@ -73,6 +79,12 @@ RSpec.describe BuyOrders::Process do
         service.call!
 
         expect(ProcessBuyOrderWorker).to have_received(:perform_in).with(10.minutes, buy_order.id)
+      end
+
+      it 'creates timeline' do
+        expect { service.call! }.to change { buy_order.timelines.count }.by(1)
+        expect(buy_order.timelines.last.action).to eq('buy_order_requeued')
+        expect(buy_order.timelines.last.description).to eq('Buy order requeued by not enough stocks on sale')
       end
 
       it 'does not create stocks buy transaction' do
