@@ -23,7 +23,13 @@ module SaleOrders
           sale_order.stocks = sale_order.stocks - stocks_to_sell
           sale_order.quantity_sold = sale_order.quantity_sold + stocks_to_sell.count
 
-          sale_order.stocks.empty? ? sale_order.complete! : sale_order.partial_complete!
+          if sale_order.stocks.empty?
+            sale_order.timelines.build(action: 'sale_order_processed', description: description)
+            sale_order.complete!
+          else
+            sale_order.timelines.build(action: 'sale_order_processed_with_partial_stock', description: description)
+            sale_order.partial_complete!
+          end
         end
       end
     end

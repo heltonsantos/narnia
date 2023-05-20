@@ -1,6 +1,7 @@
 class Timeline < ApplicationRecord
   ORDER_ACTIONS = %w[
     sale_order_processed
+    sale_order_processed_with_partial_stock
     buy_order_processed
     buy_order_requeued
   ].freeze
