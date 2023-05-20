@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_18_154259) do
+ActiveRecord::Schema.define(version: 2023_05_20_115847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(version: 2023_05_18_154259) do
     t.index ["order_id"], name: "index_stocks_on_order_id"
     t.index ["uuid"], name: "index_stocks_on_uuid", unique: true
     t.index ["wallet_id"], name: "index_stocks_on_wallet_id"
+  end
+
+  create_table "timelines", force: :cascade do |t|
+    t.string "action"
+    t.string "description"
+    t.string "timelineref_type", null: false
+    t.bigint "timelineref_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["timelineref_type", "timelineref_id"], name: "index_timelines_on_timelineref"
   end
 
   create_table "transactions", force: :cascade do |t|

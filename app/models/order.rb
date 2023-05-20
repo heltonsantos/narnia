@@ -4,6 +4,7 @@ class Order < ApplicationRecord
   include AASM
 
   has_many :stocks, dependent: nil
+  has_many :timelines, as: :timelineref, dependent: :destroy
 
   belongs_to :client
 

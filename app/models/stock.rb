@@ -8,6 +8,8 @@ class Stock < ApplicationRecord
 
   has_one :client, through: :wallet
 
+  has_many :timelines, as: :timelineref, dependent: :destroy
+
   validates :uuid, :kind, :status, presence: true
   validates :uuid, uniqueness: true
 
