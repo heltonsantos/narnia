@@ -47,7 +47,7 @@ module SaleOrders
     end
 
     def description
-      "Sale order ##{sale_order.uuid} - #{sale_order.quantity} stocks of #{sale_order.stock_kind} " \
+      "Sale order ##{sale_order.uuid} - #{stocks_to_sell.count} stocks of #{sale_order.stock_kind} " \
         "for #{sale_order.unit_price} each - Total: #{total_price}"
     end
   end

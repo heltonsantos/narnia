@@ -14,9 +14,10 @@ RSpec.describe SaleOrders::Process do
     let!(:buy_wallet) { create(:wallet, client: buy_client, balance: 150.0) }
     let(:stocks_to_sale) { create_list(:stock, 7, status: :on_sale, wallet: sale_wallet) }
     let(:stocks_to_sell) { stocks_to_sale }
+    let(:stocks_to_sell_quantity) { stocks_to_sell.count }
 
     let(:expected_stock_sale_transaction_description) do
-      "Sale order ##{sale_order.uuid} - #{sale_order.quantity} stocks of #{sale_order.stock_kind} " \
+      "Sale order ##{sale_order.uuid} - #{stocks_to_sell_quantity} stocks of #{sale_order.stock_kind} " \
         "for #{sale_order.unit_price} each - Total: #{total_price}"
     end
 
@@ -49,6 +50,7 @@ RSpec.describe SaleOrders::Process do
     context 'when is partial complete' do
       let(:stocks_to_sell) { stocks_to_sale.first(3) }
       let(:total_price) { unit_price * 3 }
+      let(:stocks_to_sell_quantity) { 3 }
 
       it 'creates stocks sale transaction' do
         expect { service.call! }.to change(StocksSaleTransaction, :count).by(1)
