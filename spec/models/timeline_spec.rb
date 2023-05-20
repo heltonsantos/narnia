@@ -12,5 +12,6 @@ RSpec.describe Timeline, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:action) }
     it { is_expected.to validate_presence_of(:description) }
+    it { is_expected.to validate_inclusion_of(:action).in_array(Timeline::ORDER_ACTIONS + Timeline::STOCK_ACTIONS) }
   end
 end
