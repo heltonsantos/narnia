@@ -4,6 +4,7 @@ class Timeline < ApplicationRecord
     sale_order_processed_with_partial_stock
     buy_order_processed
     buy_order_requeued
+    buy_order_retried
   ].freeze
 
   STOCK_ACTIONS = %w[

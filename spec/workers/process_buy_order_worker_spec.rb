@@ -33,6 +33,7 @@ RSpec.describe ProcessBuyOrderWorker do
         expect(buy_order.retry_count).to eq(1)
         expect(buy_order.error_message).to eq('Boom!')
         expect(buy_order.retryed_at).to be_present
+        expect(buy_order.timelines.last).to have_attributes(action: 'buy_order_retried', description: 'Boom!')
       end
     end
   end

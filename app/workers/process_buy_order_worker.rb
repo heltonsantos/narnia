@@ -10,6 +10,7 @@ class ProcessBuyOrderWorker
     begin
       BuyOrders::Process.call!(buy_order: buy_order)
     rescue StandardError => e
+      buy_order.timelines.create!(action: 'buy_order_retried', description: e.message)
       buy_order.error_message = e.message
       buy_order.retry_count += 1
       buy_order.retry!
