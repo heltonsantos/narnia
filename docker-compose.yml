@@ -23,6 +23,7 @@ x-app:
 services:
   api:
     <<: *app
+    restart: on-failure:5
     ports:
       - 3000:3000/tcp
     depends_on:
@@ -39,13 +40,16 @@ services:
 
   sidekiq:
     <<: *app
+    restart: on-failure:5
     command: bundle exec sidekiq
     depends_on:
       - redis
+      - db
       - api
 
   redis:
     image: 'redis:5.0-alpine'
+    restart: always
     command: redis-server
     volumes:
       - redis:/data
