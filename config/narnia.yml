@@ -1,0 +1,11 @@
+default: &default
+  process_buy_order_retry_limit: <%= ENV['PROCESS_BUY_ORDER_RETRY_LIMIT'] || 10 %>
+
+development: &development
+  <<: *default
+
+test:
+  <<: *development
+
+production: &production
+  <<: *default

@@ -1,0 +1,2 @@
+class BuyOrder < Order
+end
