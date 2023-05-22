@@ -85,8 +85,7 @@ curl --location 'localhost:3000/clients/:uuid/buy_orders' \
 --data '{
     "stock_kind": "vibranium",
     "unit_price": "17.5",
-    "quantity": 15,
-    "expired_at": "2023-5-18"
+    "quantity": 15
 }'
 ```
 
@@ -98,7 +97,6 @@ curl --location 'localhost:3000/clients/:uuid/sale_orders' \
 --data '{
     "stock_kind": "vibranium",
     "unit_price": "17.5",
-    "quantity": 50,
-    "expired_at": "2023-5-19"
+    "quantity": 50
 }'
 ```

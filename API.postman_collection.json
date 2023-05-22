@@ -110,7 +110,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"stock_kind\": \"vibranium\",\r\n    \"unit_price\": \"17.5\",\r\n    \"quantity\": 15,\r\n    \"expired_at\": \"2023-5-18\"\r\n}",
+					"raw": "{\r\n    \"stock_kind\": \"vibranium\",\r\n    \"unit_price\": \"17.5\",\r\n    \"quantity\": 15,\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -145,7 +145,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"stock_kind\": \"vibranium\",\r\n    \"unit_price\": \"17.5\",\r\n    \"quantity\": 50,\r\n    \"expired_at\": \"2023-5-19\"\r\n}",
+					"raw": "{\r\n    \"stock_kind\": \"vibranium\",\r\n    \"unit_price\": \"17.5\",\r\n    \"quantity\": 50,\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

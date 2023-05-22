@@ -16,3 +16,7 @@
 coverage
 .idea/*
 .dockerignore
+
+#README utils
+narnia-architecture.png
+API.postman_collection.json
