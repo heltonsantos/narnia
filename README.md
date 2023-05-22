@@ -43,6 +43,10 @@ The primary you need to check if the project is running.
 
 ## API documentation
 
+Postman collection is [here](https://github.com/heltonsantos/narnia/blob/master/API.postman_collection.json).
+
+You can also see the apis below:
+
 **Book orders**
 
 ```sh
@@ -98,5 +102,3 @@ curl --location 'localhost:3000/clients/:uuid/sale_orders' \
     "expired_at": "2023-5-19"
 }'
 ```
-
-If you prefer, the Postman collection is [here](https://github.com/heltonsantos/narnia/blob/master/API.postman_collection.json).
