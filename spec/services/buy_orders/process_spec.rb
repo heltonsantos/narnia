@@ -78,7 +78,7 @@ RSpec.describe BuyOrders::Process do
       it 'enqueues worker' do
         service.call!
 
-        expect(ProcessBuyOrderWorker).to have_received(:perform_in).with(10.minutes, buy_order.id)
+        expect(ProcessBuyOrderWorker).to have_received(:perform_in).with(10.minutes, buy_order.uuid)
       end
 
       it 'creates timeline' do

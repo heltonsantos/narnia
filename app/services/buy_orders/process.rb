@@ -67,7 +67,7 @@ module BuyOrders
 
       ProcessBuyOrderWorker.perform_in(
         Rails.configuration.worker.process_buy_order_worker_enqueue_delay.to_i.minutes,
-        buy_order.id
+        buy_order.uuid
       )
     end
 
