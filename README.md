@@ -39,11 +39,11 @@ The primary you need to check if the project is running.
 
 ## Architecture
 
-![Narnia Architecture](https://github.com/heltonsantos/narnia/blob/master/narnia-architecture.png)
+![Narnia Architecture](narnia-architecture.png)
 
 ## API documentation
 
-Postman collection is [here](https://github.com/heltonsantos/narnia/blob/master/API.postman_collection.json).
+Postman collection is [here](API.postman_collection.json).
 
 You can also see the apis below:
 
