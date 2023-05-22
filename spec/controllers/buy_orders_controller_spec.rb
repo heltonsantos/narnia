@@ -27,7 +27,7 @@ RSpec.describe BuyOrdersController, type: :controller do
 
         expect(response).to be_successful
         expect(response.status).to eq(201)
-        expect(ProcessBuyOrderWorker).to have_received(:perform_in).with(1.minute, BuyOrder.last.id)
+        expect(ProcessBuyOrderWorker).to have_received(:perform_in).with(1.minute, BuyOrder.last.uuid)
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe BuyOrdersController, type: :controller do
 
         expect(response).to be_successful
         expect(response.status).to eq(201)
-        expect(ProcessBuyOrderWorker).to have_received(:perform_in).with(1.minute, BuyOrder.last.id)
+        expect(ProcessBuyOrderWorker).to have_received(:perform_in).with(1.minute, BuyOrder.last.uuid)
       end
     end
 

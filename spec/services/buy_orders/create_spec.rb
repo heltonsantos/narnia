@@ -40,7 +40,7 @@ RSpec.describe BuyOrders::Create do
       it 'enqueues a worker' do
         service.call!
 
-        expect(ProcessBuyOrderWorker).to have_received(:perform_in).with(1.minute, BuyOrder.last.id)
+        expect(ProcessBuyOrderWorker).to have_received(:perform_in).with(1.minute, BuyOrder.last.uuid)
       end
     end
 

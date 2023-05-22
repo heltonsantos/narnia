@@ -25,7 +25,7 @@ module BuyOrders
           expired_at: expired_at
         )
 
-        ProcessBuyOrderWorker.perform_in(1.minute, buy_order.id)
+        ProcessBuyOrderWorker.perform_in(1.minute, buy_order.uuid)
 
         buy_order
       end

@@ -4,8 +4,8 @@ class ProcessBuyOrderWorker
   sidekiq_options queue: :process_buy_order, retry: true
   sidekiq_retry_in { Rails.configuration.worker.process_buy_order_worker_retry_in.to_i.minutes }
 
-  def perform(id)
-    buy_order = BuyOrder.find(id)
+  def perform(uuid)
+    buy_order = BuyOrder.find_by(uuid: uuid)
 
     begin
       BuyOrders::Process.call!(buy_order: buy_order)

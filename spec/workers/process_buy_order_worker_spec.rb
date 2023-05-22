@@ -8,7 +8,7 @@ RSpec.describe ProcessBuyOrderWorker do
     let(:buy_order) { create(:buy_order) }
 
     before do
-      described_class.perform_async(buy_order.id)
+      described_class.perform_async(buy_order.uuid)
 
       allow(BuyOrders::Process).to receive(:call!).and_return(true)
     end
