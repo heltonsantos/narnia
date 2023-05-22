@@ -37,6 +37,10 @@ The primary you need to check if the project is running.
 - Narnia: [http://localhost:3000](http://localhost:3000).
 - Sidekiq dashboard: [http://localhost:3000/sidekiq](http://localhost:3000/sidekiq).
 
+## Architecture
+
+![Narnia Architecture](https://github.com/heltonsantos/narnia/blob/master/narnia-architecture.png)
+
 ## API documentation
 
 **Book orders**
@@ -95,4 +99,4 @@ curl --location 'localhost:3000/clients/:uuid/sale_orders' \
 }'
 ```
 
-If you prefer, the Postman collection is [here](https://api.postman.com/collections/22860220-5e6e4247-c08e-435a-81b7-5f10fa252fbb?access_key=PMAT-01H0WSX1C3RJN2VE2DF9Y74A52).
+If you prefer, the Postman collection is [here](https://github.com/heltonsantos/narnia/blob/master/API.postman_collection.json).
