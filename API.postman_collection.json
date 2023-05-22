@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "5e6e4247-c08e-435a-81b7-5f10fa252fbb",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22860220",
+		"_collection_link": "https://www.postman.com/heltonsantosblu/workspace/narnia/collection/22860220-5e6e4247-c08e-435a-81b7-5f10fa252fbb?action=share&creator=22860220&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "GET /clients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/clients",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /clients/:uuid/stocks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/clients/:uuid/stocks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"clients",
+						":uuid",
+						"stocks"
+					],
+					"variable": [
+						{
+							"key": "uuid",
+							"value": "deed2d09-584b-42d0-af1f-27d140f497d0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /clients/:uuid/transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/clients/:uuid/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"clients",
+						":uuid",
+						"transactions"
+					],
+					"variable": [
+						{
+							"key": "uuid",
+							"value": "deed2d09-584b-42d0-af1f-27d140f497d0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /clients/:uuid/orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/clients/:uuid/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"clients",
+						":uuid",
+						"orders"
+					],
+					"variable": [
+						{
+							"key": "uuid",
+							"value": "e0612509-96af-48d7-9ac5-a294840a6635"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /clients/:uuid/purchase_orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stock_kind\": \"vibranium\",\r\n    \"unit_price\": \"17.5\",\r\n    \"quantity\": 15,\r\n    \"expired_at\": \"2023-5-18\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/clients/:uuid/buy_orders",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"clients",
+						":uuid",
+						"buy_orders"
+					],
+					"variable": [
+						{
+							"key": "uuid",
+							"value": "755ca432-4434-4289-bed1-914b2c1c1478"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /clients/:uuid/sale_orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stock_kind\": \"vibranium\",\r\n    \"unit_price\": \"17.5\",\r\n    \"quantity\": 50,\r\n    \"expired_at\": \"2023-5-19\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/clients/:uuid/sale_orders",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"clients",
+						":uuid",
+						"sale_orders"
+					],
+					"variable": [
+						{
+							"key": "uuid",
+							"value": "e0612509-96af-48d7-9ac5-a294840a6635"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /book_orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/order_books",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"order_books"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
